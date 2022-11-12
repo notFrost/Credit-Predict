@@ -266,9 +266,9 @@
 			if (modelo1 != null) {
           		var tensor = tf.tensor2d([array_credit_aprobation]);
           		var prediccion = modelo1.predict(tensor).dataSync();
-				console.log(prediccion[0]);
-          		prediccion = Math.round(prediccion, 1);
-				aprobo=prediccion;
+				
+				if(prediccion[0]<0.5){aprobo=0;}
+				else{aprobo=1;}
 			}
 		}
 		function creditolimit(){
@@ -302,11 +302,34 @@
         		});
 			}
 			else if(aprobo==1){
-				Swal.fire({
-          		title: "Aprobastes obtener una tarjeta de crédito",
-          		text: "Usted cuenta con una alta posibilidad de obtener una tarjeta de crédito en una entidad bancaria. Y puedes obtener un limite crediticio de "+ limitecredito +"$",
-          		icon: "success",
+				if(limitecredito==1){
+					Swal.fire({
+          			title: "Aprobastes obtener una tarjeta de crédito",
+          			text: "Usted cuenta con una alta posibilidad de obtener una tarjeta de crédito en una entidad bancaria. Y puedes obtener un limite crediticio menor a $10000",
+          			icon: "success",
         		});
+				}
+				else if(limitecredito==2){
+					Swal.fire({
+          			title: "Aprobastes obtener una tarjeta de crédito",
+          			text: "Usted cuenta con una alta posibilidad de obtener una tarjeta de crédito en una entidad bancaria. Y puedes obtener un limite crediticio entre $10000 a $20000",
+          			icon: "success",
+        		});
+				}
+				else if(limitecredito==3){
+					Swal.fire({
+          			title: "Aprobastes obtener una tarjeta de crédito",
+          			text: "Usted cuenta con una alta posibilidad de obtener una tarjeta de crédito en una entidad bancaria. Y puedes obtener un limite crediticio entre $20000 a $30000",
+          			icon: "success",
+        		});
+				}	
+				else if(limitecredito==4){
+					Swal.fire({
+          			title: "Aprobastes obtener una tarjeta de crédito",
+          			text: "Usted cuenta con una alta posibilidad de obtener una tarjeta de crédito en una entidad bancaria. Y puedes obtener un limite crediticio mayor a $30000",
+          			icon: "success",
+        		});
+				}	
 			}
 			else{
 				Swal.fire({
